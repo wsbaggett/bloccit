@@ -21,8 +21,12 @@ require 'random_data'
    )
  end
 
- Post.find_or_create_by!(title: "Walters one of kind post",
+ uniq_post = Post.find_or_create_by!(title: "Walters one of kind post",
                          body: "Walters one of kind body")
+
+ Comment.find_or_create_by!(post: uniq_post,
+                            body: "Walters one of kind comment body")
+
 
  puts "Seed finished"
  puts "#{Post.count} posts created"
