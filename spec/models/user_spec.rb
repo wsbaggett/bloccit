@@ -18,17 +18,30 @@ RSpec.describe User, type: :model do
    it { is_expected.to validate_length_of(:password).is_at_least(6) }
 
    describe "attributes" do
+
+     it "should have the first and last names capitalized" do
+       user.name = "bloccit user"
+       user.save
+       expect(user.name).to eq("Bloccit User")
+     end
+
      it "should have name and email attributes" do
        expect(user).to have_attributes(name: "Bloccit User", email: "user@bloccit.com")
      end
+
    end
 
    describe "invalid user" do
      let(:user_with_invalid_name) { User.new(name: "", email: "user@bloccit.com") }
+     let(:user_with_invalid_name_cap) { User.new(name: "bloccit user", email: "user@bloccit.com") }
      let(:user_with_invalid_email) { User.new(name: "Bloccit User", email: "") }
 
      it "should be an invalid user due to blank name" do
        expect(user_with_invalid_name).to_not be_valid
+     end
+
+     it "should be an invalid user due to names not being capitalized" do
+       expect(user_with_invalid_name_cap).to_not be_valid
      end
 
      it "should be an invalid user due to blank email" do
@@ -36,4 +49,5 @@ RSpec.describe User, type: :model do
      end
 
    end
+
 end
