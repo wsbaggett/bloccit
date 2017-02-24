@@ -34,3 +34,6 @@ group :development, :test do
  gem 'rails-controller-testing'
 
  gem 'bootstrap-sass'
+
+ # Used for encrypting User passwords
+ gem 'bcrypt'
