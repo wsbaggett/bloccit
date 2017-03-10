@@ -1,0 +1,6 @@
+Favorited and following "<%= @post.title %>" You will receive updates when the post is commented on.
+ <%= "=" * (@post.title.length + 12) %>
+
+ <%= @post.body %>
+
+ Visit online at: <%= topic_post_url(@post.topic, @post) %>

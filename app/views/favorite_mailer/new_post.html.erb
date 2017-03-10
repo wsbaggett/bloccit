@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+   </head>
+   <body>
+     <h1>Favorited and following "<%= @post.title %>"  You will receive updates when the post is commented on.</h1>
+
+     <p>
+       <%= @post.body %>
+     </p>
+     <p>
+
+       <%= link_to "View Post on site", topic_post_url(@post.topic, @post) %>
+     </p>
+   </body>
+ </html>
