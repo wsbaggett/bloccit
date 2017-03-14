@@ -109,6 +109,40 @@ RSpec.describe User, type: :model do
      end
    end
 
+   describe "list of favorite posts" do
+     before do
+       topic = Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)
+       @post = topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)
+     end
+
+     it "returns `nil` if the user has not favorited the post" do
+ # #1
+       expect(user.favorite_for(@post)).to be_nil
+     end
+
+     it "returns the appropriate favorite post if it exists" do
+ # #2
+       favorite = user.favorites.where(post: @post).create
+ # #3
+       expect(user.favorite_for(@post)).to eq(favorite)
+     end
+
+     it "returns the proper Gravatar url for author of post" do
+
+       expected_gravatar = "http://gravatar.com/avatar/f562705534aba431a165521d4f08ccf0.png?s=48"
+
+       expect(@post.user.avatar_url(48)).to eq(expected_gravatar)
+     end
+
+     it "returns the number of votes for the favorited post" do
+       expect(@post.votes.count).to eq(0)
+     end
+
+     it "returns the number of comments for the favorited post" do
+       expect(@post.comments.count).to eq(0)
+     end
+   end
+
    describe ".avatar_url" do
 
      let(:known_user) { create(:user, email: "blochead@bloc.io") }
